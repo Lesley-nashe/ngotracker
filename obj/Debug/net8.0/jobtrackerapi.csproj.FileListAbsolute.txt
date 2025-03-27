@@ -1,0 +1,7 @@
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.csproj.AssemblyReference.cache
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.AssemblyInfoInputs.cache
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.AssemblyInfo.cs
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.csproj.CoreCompileInputs.cache
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\jobtrackerapi\obj\Debug\net8.0\jobtrackerapi.MvcApplicationPartsAssemblyInfo.cache
