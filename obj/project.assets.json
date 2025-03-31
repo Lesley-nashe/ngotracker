@@ -6156,9 +6156,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\jobtrackerapi.csproj",
-      "projectName": "jobtrackerapi",
-      "projectPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\jobtrackerapi.csproj",
+      "projectUniqueName": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj",
+      "projectName": "ngotracker",
+      "projectPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj",
       "packagesPath": "C:\\Users\\lesli\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6XqpywpTDTc=",
+  "dgSpecHash": "vs7H5C3XwgE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\jobtrackerapi.csproj",
+  "projectFilePath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lesli\\.nuget\\packages\\aspire.hosting\\9.1.0\\aspire.hosting.9.1.0.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\aspire.hosting.postgresql\\9.1.0\\aspire.hosting.postgresql.9.1.0.nupkg.sha512",
