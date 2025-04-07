@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj": {}
+    "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\ngotrackerapi\\ngotracker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj": {
+    "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\ngotrackerapi\\ngotracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj",
+        "projectUniqueName": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\ngotrackerapi\\ngotracker.csproj",
         "projectName": "ngotracker",
-        "projectPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\ngotracker.csproj",
+        "projectPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\ngotrackerapi\\ngotracker.csproj",
         "packagesPath": "C:\\Users\\lesli\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\jobtrackerapi\\obj\\",
+        "outputPath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\ngotrackerapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lesli\\AppData\\Roaming\\NuGet\\NuGet.Config",
