@@ -1,6 +1,10 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using jobtrackerapi.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 namespace jobtrackerapi.Services;
 
@@ -40,5 +44,26 @@ public class AuthService : IAuthService
         Console.WriteLine(result);
 
         return result.Succeeded;
+    }
+
+    public string GenerateJwtToken(LoginModel loginuser)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Email, loginuser.Email),
+            new Claim(ClaimTypes.Role, "Admin")
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        var token = new JwtSecurityToken(
+            issuer: _configuration["Jwt:Issuer"],
+            audience: _configuration["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.Now.AddMinutes(60),
+            signingCredentials: creds);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

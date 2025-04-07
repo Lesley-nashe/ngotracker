@@ -33,7 +33,8 @@ namespace jobtrackerapi.Controllers
 
             if (await _authService.LoginUser(model))
             {
-                return Ok("Successfully Logged In User");
+                var token = _authService.GenerateJwtToken(model);
+                return Ok(token);
             }
 
             return BadRequest("Login Failed");

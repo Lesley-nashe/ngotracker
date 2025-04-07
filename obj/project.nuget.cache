@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JyAkPQsf1Qo=",
+  "dgSpecHash": "lge93AeZ7nk=",
   "success": true,
   "projectFilePath": "C:\\Users\\lesli\\OneDrive\\Desktop\\ProfileProjects\\jobTracker\\ngotrackerapi\\ngotracker.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\lesli\\.nuget\\packages\\jsonpatch.net\\3.2.3\\jsonpatch.net.3.2.3.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\jsonpointer.net\\5.1.0\\jsonpointer.net.5.1.0.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\kubernetesclient\\15.0.1\\kubernetesclient.15.0.1.nupkg.sha512",
+    "C:\\Users\\lesli\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.0\\microsoft.aspnetcore.authentication.jwtbearer.8.0.0.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.8\\microsoft.aspnetcore.cryptography.internal.8.0.8.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.8\\microsoft.aspnetcore.cryptography.keyderivation.8.0.8.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\8.0.8\\microsoft.aspnetcore.identity.entityframeworkcore.8.0.8.nupkg.sha512",
@@ -84,6 +85,8 @@
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.1.2\\microsoft.identitymodel.abstractions.7.1.2.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.1.2\\microsoft.identitymodel.jsonwebtokens.7.1.2.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.identitymodel.logging\\7.1.2\\microsoft.identitymodel.logging.7.1.2.nupkg.sha512",
+    "C:\\Users\\lesli\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.0.3\\microsoft.identitymodel.protocols.7.0.3.nupkg.sha512",
+    "C:\\Users\\lesli\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.0.3\\microsoft.identitymodel.protocols.openidconnect.7.0.3.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.1.2\\microsoft.identitymodel.tokens.7.1.2.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
     "C:\\Users\\lesli\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",

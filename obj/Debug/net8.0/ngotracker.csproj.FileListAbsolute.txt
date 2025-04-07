@@ -400,3 +400,6 @@ C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\obj\Deb
 C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\obj\Debug\net8.0\ngotracker.pdb
 C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\obj\Debug\net8.0\ngotracker.genruntimeconfig.cache
 C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\obj\Debug\net8.0\ref\ngotracker.dll
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\lesli\OneDrive\Desktop\ProfileProjects\jobTracker\ngotrackerapi\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
