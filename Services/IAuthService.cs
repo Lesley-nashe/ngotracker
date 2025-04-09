@@ -10,5 +10,6 @@ public interface IAuthService
     Task<bool> LoginUser(LoginModel model);
 
     string GenerateJwtToken(LoginModel loginuser);
+    Task<IdentityUser> GetUser(LoginModel model);
 
 }

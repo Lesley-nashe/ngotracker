@@ -66,4 +66,14 @@ public class AuthService : IAuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    public async Task<IdentityUser> GetUser(LoginModel model)
+    {
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user is null)
+        {
+            return null;
+        }
+         return user;
+    }
 }

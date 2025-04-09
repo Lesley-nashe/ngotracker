@@ -39,6 +39,26 @@ namespace jobtrackerapi.Controllers
 
             return BadRequest("Login Failed");
         }
+
+        [HttpPost("user")]
+
+        public async Task<IActionResult> GetUser([FromBody] LoginModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var user = await _authService.GetUser(model);
+
+            if (user is not null)
+            {
+                return Ok(user);
+            }
+
+            return BadRequest("User Does not exist");
+
+        }
     }
 
 }
