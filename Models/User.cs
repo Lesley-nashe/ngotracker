@@ -1,32 +1,39 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace jobtrackerapi.Models;
 
-public class User
+public class User : IdentityUser
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
-    public string FullName { get; set; }
-    public string UserName { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public string Role { get; set; }
-    public string Token { get; set; }
-    public string RefreshToken { get; set; }
+    public required string FirstName { get; set; }
+    public required string SecondName { get; set; }
+    public required string Role { get; set; }
+    public string? RefreshToken { get; set; }
     public DateTime RefreshTokenExpiryTime { get; set; }
 
 }
 
 public class RegisterModel
 {
-    public string FullName { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public required string FirstName { get; set; }
+     public required string SecondName { get; set; }
+     public required string Role { get; set; }
+    public required string Email { get; set; }
+    public required string Password { get; set; }
 }
 
 public class LoginModel
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public required string Email { get; set; }
+    public required string Password { get; set; }
+}
+
+public class Loginresponse 
+{
+    public bool IsLogged {get; set;}
+
+    public  string?JwtToken{get;set;}
+
+    public string?RefreshToken {get; set;}
 }

@@ -1,5 +1,6 @@
 using System.Text;
 using jobtrackerapi.Context;
+using jobtrackerapi.Models;
 using jobtrackerapi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 
 builder.Services.AddDbContext<AuthDbContext>(commonOptions);
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.Password.RequiredLength = 8;
 })
 .AddEntityFrameworkStores<AuthDbContext>()

@@ -3,6 +3,7 @@ using jobtrackerapi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ngotracker.Models;
 
 namespace jobtrackerapi.Controllers
 {
@@ -31,13 +32,14 @@ namespace jobtrackerapi.Controllers
                 return BadRequest();
             }
 
-            if (await _authService.LoginUser(model))
+            var loginResult = await _authService.LoginUser(model);
+
+            if (loginResult.IsLogged)
             {
-                var token = _authService.GenerateJwtToken(model);
-                return Ok(token);
+                return Ok(loginResult);
             }
 
-            return BadRequest("Login Failed");
+            return Unauthorized("Login Failed");
         }
 
         [HttpPost("user")]
@@ -58,6 +60,17 @@ namespace jobtrackerapi.Controllers
 
             return BadRequest("User Does not exist");
 
+        }
+
+        [HttpPost("refreshtoken")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenModel model)
+        {
+            var loginResult = await _authService.RefreshToken(model);
+            if (loginResult.IsLogged)
+            {
+                return Ok(loginResult);
+            }
+            return Unauthorized();
         }
     }
 
