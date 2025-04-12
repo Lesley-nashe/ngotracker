@@ -92,10 +92,6 @@ public class AuthService : IAuthService
 
         var IdentityUser = await _userManager.FindByNameAsync(principal.Identity.Name);
 
-        Console.WriteLine("**** Look underneath or to the side ****");
-
-        Console.WriteLine(JsonSerializer.Serialize(IdentityUser));
-
         if (
         IdentityUser is null ||
         IdentityUser.RefreshToken != model.RefreshToken ||
@@ -108,10 +104,6 @@ public class AuthService : IAuthService
         IdentityUser.RefreshToken = response.RefreshToken;
         IdentityUser.RefreshTokenExpiryTime = DateTime.UtcNow.AddHours(12);
         await _userManager.UpdateAsync(IdentityUser);
-
-        Console.WriteLine("**** Does it make it here ****");
-
-        Console.WriteLine(response);
 
         return response;
     }
