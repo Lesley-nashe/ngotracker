@@ -29,7 +29,7 @@ public class LoginModel
     public required string Password { get; set; }
 }
 
-public class Loginresponse 
+public class LoginResponse 
 {
     public bool IsLogged {get; set;}
 

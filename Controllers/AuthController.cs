@@ -14,6 +14,8 @@ namespace jobtrackerapi.Controllers
         private readonly IAuthService _authService = authService;
 
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             if (await _authService.RegisterUser(model))
@@ -25,11 +27,14 @@ namespace jobtrackerapi.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("User Input contains an error");
             }
 
             var loginResult = await _authService.LoginUser(model);
@@ -43,12 +48,14 @@ namespace jobtrackerapi.Controllers
         }
 
         [HttpPost("user")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
         public async Task<IActionResult> GetUser([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("User Input contains an error");
             }
 
             var user = await _authService.GetUser(model);
@@ -63,6 +70,8 @@ namespace jobtrackerapi.Controllers
         }
 
         [HttpPost("refreshtoken")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RefreshToken(RefreshTokenModel model)
         {
             var loginResult = await _authService.RefreshToken(model);

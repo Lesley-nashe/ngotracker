@@ -23,9 +23,9 @@ public class AuthService : IAuthService
         _userManager = userManager;
         _signInManager = signInManager;
     }
-    public async Task<Loginresponse> LoginUser(LoginModel model)
+    public async Task<LoginResponse> LoginUser(LoginModel model)
     {
-        Loginresponse response = new();
+        LoginResponse response = new();
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user is null || await _userManager.CheckPasswordAsync(user, model.Password) == false)
         {
@@ -82,11 +82,11 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public async Task<Loginresponse> RefreshToken(RefreshTokenModel model)
+    public async Task<LoginResponse> RefreshToken(RefreshTokenModel model)
     {
         var principal = GetTokenPrincipal(model.JwtToken);
 
-        var response = new Loginresponse();
+        var response = new LoginResponse();
 
         if (principal?.Identity?.Name is null) return response;
 

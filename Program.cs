@@ -44,7 +44,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
 Action<DbContextOptionsBuilder> commonOptions = (options) => 
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
@@ -67,12 +66,27 @@ builder.Services.AddAuthentication(options => {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] 
+                                ?? throw new InvalidOperationException("Jwt:Issuer is missing in configuration."),
+        ValidAudience = builder.Configuration["Jwt:Audience"] 
+                                ?? throw new InvalidOperationException("Jwt:Audience is missing in configuration."),
         ClockSkew = TimeSpan.Zero,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] 
+                                ?? throw new InvalidOperationException("Jwt:Key is missing in configuration.")))
     };
 });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddTransient<IAuthService, AuthService>();
 
@@ -88,6 +102,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();

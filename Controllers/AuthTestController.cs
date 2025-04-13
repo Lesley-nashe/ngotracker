@@ -10,14 +10,16 @@ namespace ngotracker.Controllers
     public class AuthTestController : ControllerBase
     {
         [HttpGet("Test")]
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Test()
         {
-            return Ok();
+            return Ok("Not authorisation checking but worked");
         }
         
         [HttpGet("AuthorizedTest")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult AuthorizedTest()
         {
             var authorizationHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();

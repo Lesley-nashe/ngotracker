@@ -8,12 +8,12 @@ namespace jobtrackerapi.Services;
 public interface IAuthService
 {
     Task<bool> RegisterUser(RegisterModel model);
-    Task<Loginresponse> LoginUser(LoginModel model);
+    Task<LoginResponse> LoginUser(LoginModel model);
 
     string GenerateJwtToken(string userName);
     string GenerateRefreshToken();
 
-    Task<Loginresponse> RefreshToken(RefreshTokenModel model);
+    Task<LoginResponse> RefreshToken(RefreshTokenModel model);
     Task<IdentityUser> GetUser(LoginModel model);
 
 }
