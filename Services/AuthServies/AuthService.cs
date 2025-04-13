@@ -3,21 +3,19 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
-using jobtrackerapi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using ngotracker.Models;
+using ngotracker.Models.AuthModels;
 
 namespace jobtrackerapi.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly UserManager<User> _userManager = null!;
-    private readonly SignInManager<User> _signInManager = null!;
+    private readonly UserManager<UserModel> _userManager = null!;
+    private readonly SignInManager<UserModel> _signInManager = null!;
     private readonly IConfiguration _configuration;
 
-    public AuthService(IConfiguration configuration, UserManager<User> userManager, SignInManager<User> signInManager)
+    public AuthService(IConfiguration configuration, UserManager<UserModel> userManager, SignInManager<UserModel> signInManager)
     {
         _configuration = configuration;
         _userManager = userManager;
@@ -45,7 +43,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> RegisterUser(RegisterModel model)
     {
-        var IdentityUser = new User
+        var IdentityUser = new UserModel
         {
             FirstName = model.FirstName,
             SecondName = model.SecondName,
@@ -123,7 +121,7 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);
     }
 
-    public async Task<IdentityUser> GetUser(LoginModel model)
+    public async Task<UserModel> GetUser(LoginModel model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user is null)

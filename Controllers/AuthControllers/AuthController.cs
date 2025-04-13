@@ -1,11 +1,11 @@
-using jobtrackerapi.Models;
 using jobtrackerapi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ngotracker.Models;
+using ngotracker.Models.AuthModels;
 
-namespace jobtrackerapi.Controllers
+namespace ngotracker.Controllers
 {
     [Route("api/auth")]
     [ApiController]

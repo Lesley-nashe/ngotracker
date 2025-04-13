@@ -1,12 +1,12 @@
 using System;
-using jobtrackerapi.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ngotracker.Models.AuthModels;
 
-namespace jobtrackerapi.Context;
+namespace ngotracker.Context;
 
 public class AuthDbContext(DbContextOptions dbContextOptions) : IdentityDbContext(dbContextOptions)
 {
-    public DbSet<User> Users { get; set; }
+    public DbSet<UserModel> Users { get; set; }
 
 }

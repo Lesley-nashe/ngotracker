@@ -1,6 +1,6 @@
 using System;
 
-namespace ngotracker.Models;
+namespace ngotracker.Models.AuthModels;
 
 public class RefreshTokenModel
 {
