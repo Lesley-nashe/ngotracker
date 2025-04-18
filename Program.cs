@@ -44,10 +44,14 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-Action<DbContextOptionsBuilder> commonOptions = (options) => 
+Action<DbContextOptionsBuilder> dbAuthcommonOptions = (options) => 
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-builder.Services.AddDbContext<AuthDbContext>(commonOptions);
+Action<DbContextOptionsBuilder> dbAppCommonOption = (options) =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+builder.Services.AddDbContext<AuthDbContext>(dbAuthcommonOptions);
+builder.Services.AddDbContext<AuthDbContext>(dbAppCommonOption);
 
 builder.Services.AddIdentity<UserModel, IdentityRole>(options => {
     options.Password.RequiredLength = 8;

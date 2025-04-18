@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ngotracker.Controllers
+namespace ngotracker.Controllers.AuthControllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ngotracker.Models;
 using ngotracker.Models.AuthModels;
 
-namespace ngotracker.Controllers
+namespace ngotracker.Controllers.AuthControllers
 {
     [Route("api/auth")]
     [ApiController]
