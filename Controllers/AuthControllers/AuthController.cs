@@ -18,7 +18,7 @@ namespace ngotracker.Controllers.AuthControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            if (await _authService.RegisterUser(model))
+            if(await _authService.RegisterUser(model))
             {
                 return Ok("Successfully Registered User");
             }

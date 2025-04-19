@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ngotracker.Context;
+using ngotracker.Context.AppDbContext;
 using ngotracker.Models.AuthModels;
+using ngotracker.Services.ApplicationServices;
+using ngotracker.Services.GrantServices;
+using ngotracker.Services.NgoServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +55,7 @@ Action<DbContextOptionsBuilder> dbAppCommonOption = (options) =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddDbContext<AuthDbContext>(dbAuthcommonOptions);
-builder.Services.AddDbContext<AuthDbContext>(dbAppCommonOption);
+builder.Services.AddDbContext<AppDbContext>(dbAppCommonOption);
 
 builder.Services.AddIdentity<UserModel, IdentityRole>(options => {
     options.Password.RequiredLength = 8;
@@ -93,6 +97,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthorization();
 
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IApplicationService, ApplicationService>();
+builder.Services.AddTransient<IGrantService, GrantService>();
+builder.Services.AddTransient<INgoService, NgoService>();
 
 builder.Services.AddControllers();
 
