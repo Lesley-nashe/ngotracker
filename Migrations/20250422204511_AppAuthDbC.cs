@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ngotracker.Migrations
 {
     /// <inheritdoc />
-    public partial class ApidbChanges : Migration
+    public partial class AppAuthDbC : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

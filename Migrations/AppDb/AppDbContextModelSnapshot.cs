@@ -42,11 +42,10 @@ namespace ngotracker.Migrations.AppDb
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime?>("SubmissiDate")
+                    b.Property<DateTime?>("SubmissionDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -79,7 +78,7 @@ namespace ngotracker.Migrations.AppDb
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("Deadlline")
+                    b.Property<DateTime>("Deadline")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")

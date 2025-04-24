@@ -9,7 +9,7 @@ namespace ngotracker.Models.ApplicationModels;
 public class ApplicationModel
 {
     [Key]
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [ForeignKey("Ngo")]
     public Guid NgoId { get; set; }
@@ -22,12 +22,19 @@ public class ApplicationModel
     public required GrantModel Grant { get; set; }
 
     [Required]
-    public required string Status { get; set; }
+    public Status Status { get; set; }
 
-    public DateTime? SubmissiDate { get; set; } = DateTime.UtcNow;
+    public DateTime? SubmissionDate { get; set; } = DateTime.UtcNow;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [Required]
     [MaxLength(100)]
     public required string Notes { get; set; }
+}
+
+public enum Status
+{
+    Pending,
+    Approved,
+    Failed,
 }

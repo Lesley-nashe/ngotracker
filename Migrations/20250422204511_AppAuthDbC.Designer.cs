@@ -12,8 +12,8 @@ using ngotracker.Context;
 namespace ngotracker.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20250413174728_ApidbChanges")]
-    partial class ApidbChanges
+    [Migration("20250422204511_AppAuthDbC")]
+    partial class AppAuthDbC
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ngotracker.Models.GrantModels;
 
 public class GrantModel
 {
     [Key]
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
     [MaxLength(200)]
@@ -35,7 +36,7 @@ public class GrantModel
     [Phone]
     public required string ContactPhone { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime Deadlline { get; set; } = DateTime.UtcNow;
+    public DateTime Deadline { get; set; } = DateTime.UtcNow;
 
 
 

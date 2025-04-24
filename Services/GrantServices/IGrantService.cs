@@ -12,4 +12,6 @@ public interface IGrantService
 
     Task<GrantModel> UpdateGrant(Guid id,GrantModel model);
 
+     Task<IEnumerable<GrantModel>> GetGrants();
+
 }

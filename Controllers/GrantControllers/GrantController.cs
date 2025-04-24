@@ -16,6 +16,8 @@ namespace ngotracker.Controllers.GrantControllers
 
         }
         [HttpPost("grant")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateGrant([FromBody] GrantModel grant)
         {
             var creation = await _grantService.CreateGrant(grant);
@@ -27,6 +29,8 @@ namespace ngotracker.Controllers.GrantControllers
         }
 
         [HttpGet("grant")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetGrant(Guid Id)
         {
             var grant = _grantService.GetGrant(Id);
@@ -38,7 +42,23 @@ namespace ngotracker.Controllers.GrantControllers
             else return BadRequest("Grant not found");
         }
 
+        [HttpGet("grants")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetGrants()
+        {
+            var grants = _grantService.GetGrants();
+            if (grants is not null)
+            {
+                return Ok(grants);
+            }
+
+            else return BadRequest("Grants not found");
+        }
+
         [HttpDelete("grant")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteGrant([FromBody] Guid Id)
         {
             var grantDeleted = _grantService.DeleteGrant(Id).Result;
@@ -50,7 +70,9 @@ namespace ngotracker.Controllers.GrantControllers
         }
 
         [HttpPut("grant")]
-        public async Task<IActionResult> updateGrant(Guid id,[FromBody] GrantModel grant)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> updateGrant(Guid id, [FromBody] GrantModel grant)
         {
             var updatedGrant = _grantService.UpdateGrant(id, grant);
             if (updatedGrant is not null)

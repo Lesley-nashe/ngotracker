@@ -12,8 +12,8 @@ using ngotracker.Context.AppDbContext;
 namespace ngotracker.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250418090112_NgosGrantsAppsDbs2")]
-    partial class NgosGrantsAppsDbs2
+    [Migration("20250422204556_AppDbC")]
+    partial class AppDbC
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,41 @@ namespace ngotracker.Migrations.AppDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("ngotracker.Models.ApplicationModels.ApplicationModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("GrantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("NgoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("SubmissionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrantId");
+
+                    b.HasIndex("NgoId");
+
+                    b.ToTable("ApplicationModels");
+                });
 
             modelBuilder.Entity("ngotracker.Models.GrantModels.GrantModel", b =>
                 {
@@ -46,7 +81,7 @@ namespace ngotracker.Migrations.AppDb
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("Deadlline")
+                    b.Property<DateTime>("Deadline")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
@@ -138,6 +173,25 @@ namespace ngotracker.Migrations.AppDb
                     b.HasKey("Id");
 
                     b.ToTable("NgoModels");
+                });
+
+            modelBuilder.Entity("ngotracker.Models.ApplicationModels.ApplicationModel", b =>
+                {
+                    b.HasOne("ngotracker.Models.GrantModels.GrantModel", "Grant")
+                        .WithMany()
+                        .HasForeignKey("GrantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ngotracker.Models.NgoModels.NgoModel", "Ngo")
+                        .WithMany()
+                        .HasForeignKey("NgoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Grant");
+
+                    b.Navigation("Ngo");
                 });
 #pragma warning restore 612, 618
         }

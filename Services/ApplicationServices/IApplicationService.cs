@@ -12,4 +12,6 @@ public interface IApplicationService
 
     Task<ApplicationModel> UpdateApplication(Guid id,ApplicationModel model);
 
+    Task<IEnumerable<ApplicationModel>> GetApplications();
+
 }

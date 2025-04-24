@@ -12,6 +12,8 @@ namespace ngotracker.Controllers.NgoControllers
         private readonly INgoService _ngoService = ngoService;
 
         [HttpPost("ngo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateNgo([FromBody] NgoModel ngo)
         {
             var creation = await _ngoService.CreateNgo(ngo);
@@ -23,6 +25,8 @@ namespace ngotracker.Controllers.NgoControllers
         }
 
         [HttpGet("ngo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetNgo(Guid Id)
         {
             var ngo = _ngoService.GetNgo(Id);
@@ -34,8 +38,23 @@ namespace ngotracker.Controllers.NgoControllers
             else return BadRequest("ngo not found");
 
         }
+        [HttpGet("ngos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetNgos()
+        {
+            var ngos = _ngoService.GetNgos();
+            if (ngos is not null)
+            {
+                return Ok(ngos);
+            }
+
+            else return BadRequest("Grants not found");
+        }
 
         [HttpDelete("ngo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteNgo([FromBody] Guid Id)
         {
             var ngoDeleted = _ngoService.DeleteNgo(Id).Result;
@@ -47,6 +66,8 @@ namespace ngotracker.Controllers.NgoControllers
         }
 
         [HttpPut("ngo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateNgo(Guid id, [FromBody] NgoModel ngo)
         {
             var updatedNgo = _ngoService.UpdateNgo(id, ngo);
@@ -58,6 +79,8 @@ namespace ngotracker.Controllers.NgoControllers
         }
 
         [HttpPatch("ngo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EditNgo([FromBody] NgoModel ngo)
         {
             return Ok();

@@ -15,6 +15,8 @@ namespace ngotracker.Controllers.ApplicationControllers
             _applicationService = applicationService;
         }
         [HttpPost("application")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateApplication([FromBody] ApplicationModel application)
         {
             var creation = await _applicationService.CreateApplication(application);
@@ -25,7 +27,23 @@ namespace ngotracker.Controllers.ApplicationControllers
             return BadRequest("Failed to create Application");
         }
 
+        [HttpGet("applications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetApplications()
+        {
+            var applications = _applicationService.GetApplications();
+            if (applications is not null)
+            {
+                return Ok(applications);
+            }
+
+            else return BadRequest("Applications not found");
+        }
+
         [HttpGet("application")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetApplication(Guid Id)
         {
             var application = _applicationService.GetApplication(Id);
@@ -38,6 +56,8 @@ namespace ngotracker.Controllers.ApplicationControllers
         }
 
         [HttpDelete("application")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteApplication([FromBody] Guid Id)
         {
             var applicationDeleted = _applicationService.DeleteApplication(Id).Result;
@@ -49,6 +69,8 @@ namespace ngotracker.Controllers.ApplicationControllers
         }
 
         [HttpPut("application")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateApplication(Guid id, [FromBody] ApplicationModel application)
         {
             var updatedApplication = _applicationService.UpdateApplication(id, application);

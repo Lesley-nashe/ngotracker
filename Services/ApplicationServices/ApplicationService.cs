@@ -48,6 +48,11 @@ public class ApplicationService : IApplicationService
         return application;
     }
 
+    public async Task<IEnumerable<ApplicationModel>> GetApplications()
+    {
+        return _appDb.ApplicationModels;
+    }
+
     public async Task<ApplicationModel> UpdateApplication(Guid id, ApplicationModel model)
     {
         if (id != model.Id) return null;
@@ -60,7 +65,7 @@ public class ApplicationService : IApplicationService
             GrantId = model.GrantId,
             Grant = model.Grant,
             Status = model.Status,
-            SubmissiDate = model.SubmissiDate,
+            SubmissionDate = model.SubmissionDate,
             CreatedAt = model.CreatedAt,
             Notes = model.Notes,
         };

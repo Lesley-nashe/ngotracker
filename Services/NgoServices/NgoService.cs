@@ -38,7 +38,7 @@ public class NgoService : INgoService
         return true;
     }
 
-    public NgoModel GetNgo(Guid id)
+    public async Task<NgoModel> GetNgo(Guid id)
     {
         var ngo = _appDb.NgoModels.ToList().FirstOrDefault(u => u.Id == id);
         if (ngo is null)
@@ -46,6 +46,11 @@ public class NgoService : INgoService
             return null;
         }
         return ngo;
+    }
+
+    public async Task<IEnumerable<NgoModel>> GetNgos()
+    {
+        return _appDb.NgoModels;
     }
 
     public async Task<NgoModel> UpdateNgo(Guid id, NgoModel model)

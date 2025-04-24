@@ -49,6 +49,11 @@ public class GrantService : IGrantService
         return grant;
     }
 
+    public async Task<IEnumerable<GrantModel>> GetGrants()
+    {
+        return _appDb.GrantModels;
+    }
+
     public async Task<GrantModel> UpdateGrant(Guid id, GrantModel model)
     {
         if (id != model.Id) return null;
@@ -65,7 +70,7 @@ public class GrantService : IGrantService
             Status = model.Status,
             ContactPhone = model.ContactPhone,
             CreatedAt = model.CreatedAt,
-            Deadlline = DateTime.UtcNow
+            Deadline = DateTime.UtcNow
         };
 
         _appDb.GrantModels.Update(grant);
