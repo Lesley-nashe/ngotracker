@@ -19,66 +19,54 @@ namespace ngotracker.Controllers.ApplicationControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateApplication([FromBody] ApplicationModel application)
         {
-            var creation = await _applicationService.CreateApplication(application);
-            if (creation)
-            {
-                return Ok("application Created");
-            }
-            return BadRequest("Failed to create Application");
+            if (application is null) return BadRequest("Invalid Application data.");
+            var created = await _applicationService.CreateApplication(application);
+            if (!created) return BadRequest("Failed to create Application.");
+            return CreatedAtAction(nameof(GetApplicationById), new { id = application.Id }, application);
         }
 
         [HttpGet("applications")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetApplications()
         {
-            var applications = _applicationService.GetApplications();
-            if (applications is not null)
-            {
-                return Ok(applications);
-            }
-
-            else return BadRequest("Applications not found");
+            var applications = await _applicationService.GetApplications();
+            if (applications is null || !applications.Any())
+                return NotFound("No Applications found.");
+            return Ok(applications);
         }
 
-        [HttpGet("application")]
+        [HttpGet("application/{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetApplication(Guid Id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetApplicationById(Guid Id)
         {
-            var application = _applicationService.GetApplication(Id);
-            if (application is not null)
-            {
-                return Ok(application);
-            }
-
-            else return BadRequest("Application not found");
+            var application = await _applicationService.GetApplication(Id);
+            if (application is null) return NotFound($"Application with ID {Id} not found.");
+            return Ok(application);
         }
 
-        [HttpDelete("application")]
+        [HttpDelete("application/{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteApplication([FromBody] Guid Id)
+          [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteApplication(Guid Id)
         {
-            var applicationDeleted = _applicationService.DeleteApplication(Id).Result;
-            if (applicationDeleted)
-            {
-                return Ok("Application Deleted");
-            }
-            return BadRequest("Deletion failed");
+            var applicationDeleted = await _applicationService.DeleteApplication(Id);
+            if (!applicationDeleted) return NotFound($"Application with ID {Id} not found or could not be deleted.");
+            return Ok("Application deleted successfully.");
         }
 
-        [HttpPut("application")]
+        [HttpPut("application/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateApplication(Guid id, [FromBody] ApplicationModel application)
         {
-            var updatedApplication = _applicationService.UpdateApplication(id, application);
-            if (updatedApplication is not null)
-            {
-                return Ok(updatedApplication);
-            }
-            return BadRequest("Application Update failed");
+            if (application is null || id != application.Id)
+                return BadRequest("Invalid Application data or mismatched ID.");
+            var updatedApplication = await _applicationService.UpdateApplication(id, application);
+            if (updatedApplication is null) return NotFound($"Application with ID {id} not found or could not be updated.");
+            return Ok(updatedApplication);
         }
 
         [HttpPatch("application")]

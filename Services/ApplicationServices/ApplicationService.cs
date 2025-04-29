@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using ngotracker.Context.AppDbContext;
 using ngotracker.Models.ApplicationModels;
 
@@ -17,61 +18,52 @@ public class ApplicationService : IApplicationService
 
     public async Task<bool> CreateApplication(ApplicationModel model)
     {
-        if (model is null)
-        {
-            return false;
-        }
-        _appDb.ApplicationModels.Add(model);
-        _appDb.SaveChanges();
+        if (model is null) return false;
+        await _appDb.ApplicationModels.AddAsync(model);
+        await _appDb.SaveChangesAsync();
         return true;
     }
 
     public async Task<bool> DeleteApplication(Guid id)
     {
-        var application = _appDb.ApplicationModels.ToList().FirstOrDefault(u => u.Id == id);
+        var application = await _appDb.ApplicationModels.FindAsync(id);
         if (application is null)
         {
             return false;
         }
         _appDb.ApplicationModels.Remove(application);
-        _appDb.SaveChanges();
+        await _appDb.SaveChangesAsync();
         return true;
     }
 
-    public async Task<ApplicationModel> GetApplication(Guid id)
+    public async Task<ApplicationModel?> GetApplication(Guid id)
     {
-        var application = _appDb.ApplicationModels.ToList().FirstOrDefault(u => u.Id == id);
-        if (application is null)
-        {
-            return null;
-        }
-        return application;
+        return await _appDb.ApplicationModels.FindAsync(id);
     }
 
     public async Task<IEnumerable<ApplicationModel>> GetApplications()
     {
-        return _appDb.ApplicationModels;
+        return await _appDb.ApplicationModels.ToListAsync();
     }
 
-    public async Task<ApplicationModel> UpdateApplication(Guid id, ApplicationModel model)
+    public async Task<ApplicationModel?> UpdateApplication(Guid id, ApplicationModel model)
     {
         if (id != model.Id) return null;
+        var app = await _appDb.ApplicationModels.FindAsync(id);
+        if (app is null) return null;
 
-        ApplicationModel application = new()
-        {
-            Id = id,
-            NgoId = model.NgoId,
-            Ngo = model.Ngo,
-            GrantId = model.GrantId,
-            Grant = model.Grant,
-            Status = model.Status,
-            SubmissionDate = model.SubmissionDate,
-            CreatedAt = model.CreatedAt,
-            Notes = model.Notes,
-        };
+        app.Id = id;
+        app.NgoId = model.NgoId;
+        app.Ngo = model.Ngo;
+        app.GrantId = model.GrantId;
+        app.Grant = model.Grant;
+        app.Status = model.Status;
+        app.SubmissionDate = model.SubmissionDate;
+        app.CreatedAt = model.CreatedAt;
+        app.Notes = model.Notes;
 
-        _appDb.ApplicationModels.Update(application);
-        _appDb.SaveChanges();
-        return application;
+        _appDb.ApplicationModels.Update(app);
+        await _appDb.SaveChangesAsync();
+        return app;
     }
 }

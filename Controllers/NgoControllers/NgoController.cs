@@ -72,10 +72,7 @@ namespace ngotracker.Controllers.NgoControllers
             if (ngo is null || id != ngo.Id)
                 return BadRequest("Invalid NGO data or mismatched ID.");
             var updatedNgo = await _ngoService.UpdateNgo(id, ngo);
-            if (updatedNgo is null)
-            {
-                return NotFound($"NGO with ID {id} not found or could not be updated.");
-            }
+            if (updatedNgo is null) return NotFound($"NGO with ID {id} not found or could not be updated.");
             return Ok(updatedNgo);
         }
 
