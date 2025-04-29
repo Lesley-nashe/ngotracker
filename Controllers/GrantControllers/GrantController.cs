@@ -20,26 +20,23 @@ namespace ngotracker.Controllers.GrantControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateGrant([FromBody] GrantModel grant)
         {
+            if (grant is null) return BadRequest("Invalid Grant data.");
             var creation = await _grantService.CreateGrant(grant);
-            if (creation)
-            {
-                return Ok("Grant Created");
-            }
-            return BadRequest("Failed to create Grant");
+            if (!creation)
+                return BadRequest("Failed to create NGO.");
+            return CreatedAtAction(nameof(GetGrantbyId), new { id = grant.Id }, grant);
         }
 
-        [HttpGet("grant")]
+        [HttpGet("grant/{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetGrant(Guid Id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetGrantbyId(Guid Id)
         {
-            var grant = _grantService.GetGrant(Id);
-            if (grant is not null)
-            {
-                return Ok(grant);
-            }
+            var grant = await _grantService.GetGrant(Id);
+            if (grant is null)
+                return NotFound($"Grant with ID {Id} not found.");
 
-            else return BadRequest("Grant not found");
+            return Ok(grant);
         }
 
         [HttpGet("grants")]
@@ -47,39 +44,38 @@ namespace ngotracker.Controllers.GrantControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetGrants()
         {
-            var grants = _grantService.GetGrants();
-            if (grants is not null)
-            {
-                return Ok(grants);
-            }
+            var grants = await _grantService.GetGrants();
+            if (grants is null || !grants.Any())
+                return NotFound("No Grants found.");
 
-            else return BadRequest("Grants not found");
+            return Ok(grants);
         }
 
-        [HttpDelete("grant")]
+        [HttpDelete("grant/{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteGrant([FromBody] Guid Id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteGrant(Guid Id)
         {
-            var grantDeleted = _grantService.DeleteGrant(Id).Result;
-            if (grantDeleted)
-            {
-                return Ok("Grant Deleted");
-            }
-            return BadRequest("Deletion failed");
+            var grantDeleted = await _grantService.DeleteGrant(Id);
+            if (!grantDeleted)
+                return NotFound($"Grant with ID {Id} not found or could not be deleted.");
+            return Ok("Grant deleted successfully.");
         }
 
         [HttpPut("grant")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> updateGrant(Guid id, [FromBody] GrantModel grant)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateGrant(Guid id, [FromBody] GrantModel grant)
         {
-            var updatedGrant = _grantService.UpdateGrant(id, grant);
-            if (updatedGrant is not null)
+            if (grant is null || id != grant.Id)
+                return BadRequest("Invalid Grant data or mismatched ID.");
+            var updatedGrant = await _grantService.UpdateGrant(id, grant);
+            if (updatedGrant is null)
             {
-                return Ok(updatedGrant);
+                return NotFound($"Grant with ID {id} not found or could not be updated.");
             }
-            return BadRequest("Grant Update failed");
+            return Ok(updatedGrant);
         }
 
         [HttpPatch("grant")]

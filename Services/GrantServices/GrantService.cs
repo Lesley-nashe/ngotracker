@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using ngotracker.Context.AppDbContext;
 using ngotracker.Models.GrantModels;
 
@@ -17,64 +18,55 @@ public class GrantService : IGrantService
     }
     public async Task<bool> CreateGrant(GrantModel model)
     {
-        if (model is null)
-        {
-            return false;
-        }
-        _appDb.GrantModels.Add(model);
-        _appDb.SaveChanges();
+        if (model is null) return false;
+        await _appDb.GrantModels.AddAsync(model);
+        await _appDb.SaveChangesAsync();
         return true;
-
     }
 
     public async Task<bool> DeleteGrant(Guid id)
     {
-        var grant = _appDb.GrantModels.ToList().FirstOrDefault(u => u.Id == id);
+        var grant = await _appDb.GrantModels.FindAsync(id);
         if (grant is null)
         {
             return false;
         }
         _appDb.GrantModels.Remove(grant);
-        _appDb.SaveChanges();
+        await _appDb.SaveChangesAsync();
         return true;
     }
 
-    public async Task<GrantModel> GetGrant(Guid id)
+    public async Task<GrantModel?> GetGrant(Guid id)
     {
-        var grant = _appDb.GrantModels.ToList().FirstOrDefault(u => u.Id == id);
-        if (grant is null)
-        {
-            return null;
-        }
-        return grant;
+        return await _appDb.GrantModels.FindAsync(id);
     }
 
     public async Task<IEnumerable<GrantModel>> GetGrants()
     {
-        return _appDb.GrantModels;
+        return await _appDb.GrantModels.ToListAsync();
     }
 
-    public async Task<GrantModel> UpdateGrant(Guid id, GrantModel model)
+    public async Task<GrantModel?> UpdateGrant(Guid id, GrantModel model)
     {
         if (id != model.Id) return null;
 
-        GrantModel grant = new()
-        {
-            Id = id,
-            Title = model.Title,
-            Provider = model.Provider,
-            Amount = model.Amount,
-            Currency = model.Currency,
-            Description = model.Description,
-            Eligibility = model.Eligibility,
-            Status = model.Status,
-            ContactPhone = model.ContactPhone,
-            CreatedAt = model.CreatedAt,
-            Deadline = DateTime.UtcNow
-        };
+        var grant = await _appDb.GrantModels.FindAsync(id);
+        if (grant == null) return null;
+
+        grant.Id = id;
+        grant.Title = model.Title;
+        grant.Provider = model.Provider;
+        grant.Amount = model.Amount;
+        grant.Currency = model.Currency;
+        grant.Description = model.Description;
+        grant.Eligibility = model.Eligibility;
+        grant.Status = model.Status;
+        grant.ContactPhone = model.ContactPhone;
+        grant.CreatedAt = model.CreatedAt;
+        grant.Deadline = DateTime.UtcNow;
 
         _appDb.GrantModels.Update(grant);
-        _appDb.SaveChanges();
+        await _appDb.SaveChangesAsync();
         return grant;
     }
 }
