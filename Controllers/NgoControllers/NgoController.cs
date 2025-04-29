@@ -16,66 +16,67 @@ namespace ngotracker.Controllers.NgoControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateNgo([FromBody] NgoModel ngo)
         {
-            var creation = await _ngoService.CreateNgo(ngo);
-            if (creation)
-            {
-                return Ok("Ngo Created");
-            }
-            return BadRequest("Failed to create Ngo");
+            if (ngo is null)
+                return BadRequest("Invalid NGO data.");
+
+            var created = await _ngoService.CreateNgo(ngo);
+            if (!created)
+                return BadRequest("Failed to create NGO.");
+
+            return CreatedAtAction(nameof(GetNgoById), new { id = ngo.Id }, ngo);
         }
 
-        [HttpGet("ngo")]
+        [HttpGet("ngo/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetNgo(Guid Id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetNgoById(Guid id)
         {
-            var ngo = _ngoService.GetNgo(Id);
-            if (ngo is not null)
-            {
-                return Ok(ngo);
-            }
+            var ngo = await _ngoService.GetNgo(id);
 
-            else return BadRequest("ngo not found");
+            if (ngo is null)
+                return NotFound($"NGO with ID {id} not found.");
 
+            return Ok(ngo);
         }
+
         [HttpGet("ngos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetNgos()
         {
-            var ngos = _ngoService.GetNgos();
-            if (ngos is not null)
-            {
-                return Ok(ngos);
-            }
+            var ngos = await _ngoService.GetNgos();
+            if (ngos is null || !ngos.Any())
+                return NotFound("No NGOs found.");
 
-            else return BadRequest("Grants not found");
+            return Ok(ngos);
         }
 
-        [HttpDelete("ngo")]
+        [HttpDelete("ngo/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteNgo([FromBody] Guid Id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteNgo(Guid id)
         {
-            var ngoDeleted = _ngoService.DeleteNgo(Id).Result;
-            if (ngoDeleted)
-            {
-                return Ok("ngo Deleted");
-            }
-            return BadRequest("Deletion failed");
+            var ngoDeleted = await _ngoService.DeleteNgo(id);
+            if (!ngoDeleted)
+                return NotFound($"NGO with ID {id} not found or could not be deleted.");
+
+            return Ok("NGO deleted successfully.");
         }
 
-        [HttpPut("ngo")]
+        [HttpPut("ngo/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateNgo(Guid id, [FromBody] NgoModel ngo)
         {
-            var updatedNgo = _ngoService.UpdateNgo(id, ngo);
-            if (updatedNgo is not null)
+            if (ngo is null || id != ngo.Id)
+                return BadRequest("Invalid NGO data or mismatched ID.");
+            var updatedNgo = await _ngoService.UpdateNgo(id, ngo);
+            if (updatedNgo is null)
             {
-                return Ok(updatedNgo);
+                return NotFound($"NGO with ID {id} not found or could not be updated.");
             }
-            return BadRequest("Ngo Update failed");
+            return Ok(updatedNgo);
         }
 
         [HttpPatch("ngo")]
