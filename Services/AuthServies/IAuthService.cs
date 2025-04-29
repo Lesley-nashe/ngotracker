@@ -10,5 +10,5 @@ public interface IAuthService
     string GenerateJwtToken(string userName);
     string GenerateRefreshToken();
     Task<LoginResponse> RefreshToken(RefreshTokenModel model);
-    Task<UserModel> GetUser(LoginModel model);
+    Task<UserModel?> GetUser(LoginModel model);
 }

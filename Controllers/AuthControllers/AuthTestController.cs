@@ -15,7 +15,7 @@ namespace ngotracker.Controllers.AuthControllers
         {
             return Ok("Not authorisation checking but worked");
         }
-        
+
         [HttpGet("AuthorizedTest")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -24,7 +24,16 @@ namespace ngotracker.Controllers.AuthControllers
         {
             var authorizationHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
 
-            string jwtSecurityToken = authorizationHeader.Replace("Bearer ","");
+            string jwtSecurityToken;
+            
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwtSecurityToken = authorizationHeader["Bearer ".Length..].Trim();
+            }
+            else
+            {
+                throw new ArgumentException("Invalid or missing Authorization header.");
+            }
 
             var jwt = new JwtSecurityToken(jwtSecurityToken);
 

@@ -5,7 +5,7 @@ using ngotracker.Models.AuthModels;
 
 namespace ngotracker.Context;
 
-public class AuthDbContext(DbContextOptions<AuthDbContext>dbContextOptions) : IdentityDbContext(dbContextOptions)
+public class AuthDbContext(DbContextOptions<AuthDbContext> options) : IdentityDbContext(options)
 {
     public DbSet<UserModel> Users { get; set; }
 

@@ -121,14 +121,9 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);
     }
 
-    public async Task<UserModel> GetUser(LoginModel model)
+    public async Task<UserModel?> GetUser(LoginModel model)
     {
-        var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user is null)
-        {
-            return null;
-        }
-        return user;
+        return await _userManager.FindByEmailAsync(model.Email);
     }
 
     public string GenerateRefreshToken()
