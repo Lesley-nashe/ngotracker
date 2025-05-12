@@ -5,18 +5,11 @@ using ngotracker.Models.ApplicationModels;
 
 namespace ngotracker.Services.ApplicationServices;
 
-public class ApplicationService : IApplicationService
+public class ApplicationService(AppDbContext appDb) : IApplicationService
 {
-    private readonly AppDbContext _appDb;
-    private readonly IConfiguration _configuration;
-    public ApplicationService(IConfiguration configuration, AppDbContext appDb)
-    {
-        _configuration = configuration;
-        _appDb = appDb;
+    private readonly AppDbContext _appDb = appDb;
 
-    }
-
-    public async Task<bool> CreateApplication(ApplicationModel model)
+    public async Task<bool> CreateApplication(ApplicationModel model) /* Service function to create an application */
     {
         if (model is null) return false;
         await _appDb.ApplicationModels.AddAsync(model);
@@ -24,7 +17,7 @@ public class ApplicationService : IApplicationService
         return true;
     }
 
-    public async Task<bool> DeleteApplication(Guid id)
+    public async Task<bool> DeleteApplication(Guid id) /* Service function to delete an application */
     {
         var application = await _appDb.ApplicationModels.FindAsync(id);
         if (application is null)
@@ -36,17 +29,17 @@ public class ApplicationService : IApplicationService
         return true;
     }
 
-    public async Task<ApplicationModel?> GetApplication(Guid id)
+    public async Task<ApplicationModel?> GetApplication(Guid id) /* Service function to get an application */
     {
         return await _appDb.ApplicationModels.FindAsync(id);
     }
 
-    public async Task<IEnumerable<ApplicationModel>> GetApplications()
+    public async Task<IEnumerable<ApplicationModel>> GetApplications() /* Service function to get many applications */
     {
         return await _appDb.ApplicationModels.ToListAsync();
     }
 
-    public async Task<ApplicationModel?> UpdateApplication(Guid id, ApplicationModel model)
+    public async Task<ApplicationModel?> UpdateApplication(Guid id, ApplicationModel model) /* Service function to update an application*/
     {
         if (id != model.Id) return null;
         var app = await _appDb.ApplicationModels.FindAsync(id);

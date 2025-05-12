@@ -5,18 +5,11 @@ using ngotracker.Models.GrantModels;
 
 namespace ngotracker.Services.GrantServices;
 
-public class GrantService : IGrantService
+public class GrantService(AppDbContext appDb) : IGrantService
 {
-    private readonly AppDbContext _appDb;
-    private readonly IConfiguration _configuration;
+    private readonly AppDbContext _appDb = appDb;
 
-    public GrantService(IConfiguration configuration, AppDbContext appDb)
-    {
-        _configuration = configuration;
-        _appDb = appDb;
-
-    }
-    public async Task<bool> CreateGrant(GrantModel model)
+    public async Task<bool> CreateGrant(GrantModel model) /* Service function to create a grant */
     {
         if (model is null) return false;
         await _appDb.GrantModels.AddAsync(model);
@@ -24,7 +17,7 @@ public class GrantService : IGrantService
         return true;
     }
 
-    public async Task<bool> DeleteGrant(Guid id)
+    public async Task<bool> DeleteGrant(Guid id) /* Service function to delete an grant */
     {
         var grant = await _appDb.GrantModels.FindAsync(id);
         if (grant is null)
@@ -36,17 +29,17 @@ public class GrantService : IGrantService
         return true;
     }
 
-    public async Task<GrantModel?> GetGrant(Guid id)
+    public async Task<GrantModel?> GetGrant(Guid id) /* Service function to get an grant */
     {
         return await _appDb.GrantModels.FindAsync(id);
     }
 
-    public async Task<IEnumerable<GrantModel>> GetGrants()
+    public async Task<IEnumerable<GrantModel>> GetGrants() /* Service function to get a grant */
     {
         return await _appDb.GrantModels.ToListAsync();
     }
 
-    public async Task<GrantModel?> UpdateGrant(Guid id, GrantModel model)
+    public async Task<GrantModel?> UpdateGrant(Guid id, GrantModel model) /* Service function to update a grant*/
     {
         if (id != model.Id) return null;
 

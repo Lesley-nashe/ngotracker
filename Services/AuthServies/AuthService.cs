@@ -9,19 +9,12 @@ using ngotracker.Models.AuthModels;
 
 namespace jobtrackerapi.Services;
 
-public class AuthService : IAuthService
+public class AuthService(IConfiguration configuration, UserManager<UserModel> userManager) : IAuthService
 {
-    private readonly UserManager<UserModel> _userManager = null!;
-    private readonly SignInManager<UserModel> _signInManager = null!;
-    private readonly IConfiguration _configuration;
+    private readonly UserManager<UserModel> _userManager = userManager;
+    private readonly IConfiguration _configuration = configuration;
 
-    public AuthService(IConfiguration configuration, UserManager<UserModel> userManager, SignInManager<UserModel> signInManager)
-    {
-        _configuration = configuration;
-        _userManager = userManager;
-        _signInManager = signInManager;
-    }
-    public async Task<LoginResponse> LoginUser(LoginModel model)
+    public async Task<LoginResponse> LoginUser(LoginModel model) /* Service function to log in user */
     {
         LoginResponse response = new();
         var user = await _userManager.FindByEmailAsync(model.Email);
@@ -41,7 +34,7 @@ public class AuthService : IAuthService
         return response;
     }
 
-    public async Task<bool> RegisterUser(RegisterModel model)
+    public async Task<bool> RegisterUser(RegisterModel model)  /* Service function to create/register a user */
     {
         var IdentityUser = new UserModel
         {
@@ -59,7 +52,7 @@ public class AuthService : IAuthService
         return result.Succeeded;
     }
 
-    public string GenerateJwtToken(string userName)
+    public string GenerateJwtToken(string userName) /* Service function to generate a jwt token */
     {
         var claims = new[]
         {
@@ -80,7 +73,7 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public async Task<LoginResponse> RefreshToken(RefreshTokenModel model)
+    public async Task<LoginResponse> RefreshToken(RefreshTokenModel model) /* Service function to create a refresh jwt token */
     {
         var principal = GetTokenPrincipal(model.JwtToken);
 
@@ -106,7 +99,7 @@ public class AuthService : IAuthService
         return response;
     }
 
-    private ClaimsPrincipal? GetTokenPrincipal(string token)
+    private ClaimsPrincipal? GetTokenPrincipal(string token) /* Service function to get the token principal */
     {
         var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
 
@@ -126,7 +119,7 @@ public class AuthService : IAuthService
         return await _userManager.FindByEmailAsync(model.Email);
     }
 
-    public string GenerateRefreshToken()
+    public string GenerateRefreshToken() /* Service function to create a non jwt refresh string, that is used to get the refresh jwt token */
     {
         var randomNumber = new byte[64];
 

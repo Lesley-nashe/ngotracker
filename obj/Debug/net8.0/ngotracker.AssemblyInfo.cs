@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ngotracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37460a136fe722e5f44eda4b6462aa99e398c458")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a31684a560367053bc4904ab72f70170ecd1904")]
 [assembly: System.Reflection.AssemblyProductAttribute("ngotracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ngotracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

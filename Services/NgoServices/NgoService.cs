@@ -5,17 +5,11 @@ using ngotracker.Models.NgoModels;
 
 namespace ngotracker.Services.NgoServices;
 
-public class NgoService : INgoService
+public class NgoService(AppDbContext appDb) : INgoService
 {
-    private readonly AppDbContext _appDb;
-    private readonly IConfiguration _configuration;
-    public NgoService(IConfiguration configuration, AppDbContext appDb)
-    {
-        _configuration = configuration;
-        _appDb = appDb;
+    private readonly AppDbContext _appDb = appDb;
 
-    }
-    public async Task<bool> CreateNgo(NgoModel model)
+    public async Task<bool> CreateNgo(NgoModel model) /* Service function to create a ngo */
     {
         if (model is null) return false;
         await _appDb.NgoModels.AddAsync(model);
@@ -23,7 +17,7 @@ public class NgoService : INgoService
         return true;
     }
 
-    public async Task<bool> DeleteNgo(Guid id)
+    public async Task<bool> DeleteNgo(Guid id) /* Service function to delete a ngo */
     {
         var ngo = await _appDb.NgoModels.FindAsync(id);
         if (ngo is null)
@@ -35,17 +29,17 @@ public class NgoService : INgoService
         return true;
     }
 
-    public async Task<NgoModel?> GetNgo(Guid id)
+    public async Task<NgoModel?> GetNgo(Guid id) /* Service function to get an ngo */
     {
         return await _appDb.NgoModels.FindAsync(id);
     }
 
-    public async Task<IEnumerable<NgoModel>> GetNgos()
+    public async Task<IEnumerable<NgoModel>> GetNgos() /* Service function to get a ngos */
     {
         return await _appDb.NgoModels.ToListAsync();
     }
 
-    public async Task<NgoModel?> UpdateNgo(Guid id, NgoModel model)
+    public async Task<NgoModel?> UpdateNgo(Guid id, NgoModel model) /* Service function to update an ngo */
     {
         if (id != model.Id) return null;
 
