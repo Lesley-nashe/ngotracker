@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  SERVER_APP_NAME: "ngotrackerAPI"
+  SERVER_APP_NAME: "trackerappAPI"
 
 jobs:
   build:
@@ -37,5 +37,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.SERVER_APP_NAME }}
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: ./publish
