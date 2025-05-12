@@ -55,4 +55,4 @@ jobs:
           app-name: 'trackerAPI-demo'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ABC8B50929B241EA861F802388A35DF2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
