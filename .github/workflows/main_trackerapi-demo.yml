@@ -25,13 +25,13 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Install dependencies
-        run: dotnet restore ./src/ngotracker.Server/ngotracker.Server.csproj
+        run: dotnet restore ngotracker.csproj
 
       - name: Build
-        run: dotnet build ./src/ngotracker.Server/ngotracker.Server.csproj
+        run: dotnet build ngotracker.csproj
 
       - name: Publish
-        run: dotnet publish ./src/ngotracker.Server/ngotracker.Server.csproj --configuration Release --output ./publish
+        run: dotnet publish ngotracker.csproj --configuration Release --output ./publish
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
