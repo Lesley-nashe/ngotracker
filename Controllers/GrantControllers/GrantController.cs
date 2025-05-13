@@ -45,9 +45,10 @@ namespace ngotracker.Controllers.GrantControllers
         public async Task<IActionResult> GetGrants()
         {
             var grants = await _grantService.GetGrants();
-            if (grants is null || !grants.Any())
+            if (grants is null)
                 return NotFound("No Grants found.");
-
+            if (!grants.Any())
+                return Ok(new List<GrantModel>());
             return Ok(grants);
         }
 

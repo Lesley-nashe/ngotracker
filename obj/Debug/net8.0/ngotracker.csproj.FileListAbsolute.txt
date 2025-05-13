@@ -607,3 +607,4 @@ c:\Users\Bernard\Desktop\ngotracker\backendapi\ngotracker\obj\Debug\net8.0\refin
 c:\Users\Bernard\Desktop\ngotracker\backendapi\ngotracker\obj\Debug\net8.0\ngotracker.pdb
 C:\Users\Bernard\Desktop\ngotracker\backendapi\ngotracker\obj\Debug\net8.0\ngotracker.genruntimeconfig.cache
 C:\Users\Bernard\Desktop\ngotracker\backendapi\ngotracker\obj\Debug\net8.0\ref\ngotracker.dll
+C:\Users\Bernard\Desktop\ngotracker\backendapi\ngotracker\bin\Debug\net8.0\appsettings.Production.json

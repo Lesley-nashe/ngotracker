@@ -47,7 +47,8 @@ namespace ngotracker.Controllers.NgoControllers
             var ngos = await _ngoService.GetNgos();
             if (ngos is null || !ngos.Any())
                 return NotFound("No NGOs found.");
-
+            if (!ngos.Any())
+                return Ok(new List<NgoModel>());
             return Ok(ngos);
         }
 
